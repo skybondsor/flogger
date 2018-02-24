@@ -1,4 +1,4 @@
-### Flogger
+# Flogger
 A UI Testing Frame &amp; Logger
 
 ## Why
@@ -13,6 +13,6 @@ Testing your UI can be painful and slow. This single-page dealie makes it slight
 6) Fix the errors you found while testing.
 7) Repeat.
 
-# Questions you might have:
+### Questions you might have:
 - Does Flogger affect the contents of the iframe? _Nope! It just leads you through interacting with that content._
 - Inline JS is pretty lame; why not abstract a bit more? _Because it works fine and obvs building this was at least partly a way to procrastinate actually doing QA. I figured I should get back to that ASAP!_
