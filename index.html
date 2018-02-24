@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>UI Test Frame &amp; Logger for Web Apps (or anything, really)</title>
+    <style>
+      * { box-sizing: border-box; }
+      body, p { margin: 0; padding: 0; }
+      iframe { width: 100%; height: 75vh; }
+      span { display: block; }
+        span.test { color: blue; }
+        span.error { color: red; }
+      #log { padding: 1em; width: 100%; height: 25vh; overflow: auto; font: 105%/140% monospace; }
+      button { font: 105%/140% monospace; }
+    </style>
+  </head>
+
+  <body>
+
+    <iframe id="app" name="app" src="example.html" width="100%"></iframe>
+    
+    <div id="log">
+      <p id="pre"></p><!-- previous tests and log items -->
+      <p id="cur"><p><!-- current test -->
+    </div><!-- #log -->
+
+    <script>
+
+      // The list of tests to be performed
+      var tests = [
+        "Dashboard loaded",
+        "Main navigation links work",
+        "Form input shows appropriate error messaging when special characters are entered",
+        "Form shows appropriate confirmation text upon submission",
+        "Clearing form then refreshing page shows a cleared form"
+      ];
+      
+      // UI Stuff
+      var app = document.getElementById('app');
+      var log = document.getElementById('log');
+      var pre = document.getElementById('pre');
+      var cur = document.getElementById('cur');
+
+      // Special log items for first load
+      var firstLoad = true;
+
+      if ( firstLoad ){
+        
+        // Print date
+        pre.innerHTML += '<span>Test started '+new Date()+'</span>';
+
+        // Print user agent
+        pre.innerHTML += '<span>Testing on '+window.navigator.userAgent+'</span>';
+        
+        // Load first step
+        loadTest(0);
+        
+      } // firstLoad
+      
+      // Now that we've done the special first-load items, it's no longer first load
+      firstLoad = false;
+
+      // Log every page load
+      app.onload = function(){
+        pre.innerHTML += '<span>&check; '+app.contentWindow.location.href+' successfully loaded</span>';
+        log.scrollTop = log.scrollHeight;
+      };
+
+      // Log every console error
+      app.contentWindow.onerror = function(error, url, line) {
+        pre.innerHTML += '<span class="error">&cross; '+url+' '+line+': '+error+'</span>';
+        log.scrollTop = log.scrollHeight;
+      };
+
+      function loadTest(testIndex){
+
+        // If we're at the end of the list...
+        if ( !tests[testIndex] ){
+          pre.innerHTML += '<span>Test ended '+new Date()+'</span>';
+          cur.innerHTML += '<button onclick="window.getSelection().selectAllChildren(document.getElementById(\'pre\'));">Click to select log for copy/paste</button>';
+        }
+
+        // Otherwise, add the next test and scroll down to it
+        else {
+          cur.innerHTML += '<span id="test'+testIndex+'" class="test"><button onclick="testResult('+testIndex+',\'success\')">&check;</button> <button onclick="testResult('+testIndex+',\'error\')">&cross;</button> '+tests[testIndex]+'</span>';
+          log.scrollTop = log.scrollHeight;
+        }
+
+      } // loadTest
+
+      function testResult(testIndex,result){
+
+        // Remove the exsisting test
+        var theTest = document.getElementById('test'+testIndex);
+        theTest.parentNode.removeChild(theTest);
+       
+        // Log successful result
+        if ( result === 'success' ){
+          pre.innerHTML += '<span id="test'+testIndex+'" class="success">&check; '+tests[testIndex]+'</span>';  
+        }
+
+        // Log unsuccesful result
+        else {
+          pre.innerHTML += '<span id="test'+testIndex+'" class="error">&cross; '+tests[testIndex]+'</span>'; 
+        }
+
+        // On to the next test
+        loadTest(testIndex+1);
+
+      } // testResult
+
+    </script>
+
+  </body>
+</html>
