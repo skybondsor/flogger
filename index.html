@@ -62,7 +62,14 @@
 
       // Log every page load
       app.onload = function(){
-        pre.innerHTML += '<span>&check; '+app.contentWindow.location.href+' successfully loaded</span>';
+        var http = new XMLHttpRequest();
+            http.open('HEAD', app.contentWindow.location.href, false);
+            http.send();
+        if (http.status.toString().indexOf('4') === 0 ){
+          pre.innerHTML += '<span class="error">&cross; '+app.contentWindow.location.href+' server error '+http.status+'</span>';
+        } else {
+          pre.innerHTML += '<span>&para; '+app.contentWindow.location.href+' successfully loaded</span>';  
+        }     
         log.scrollTop = log.scrollHeight;
       };
 
