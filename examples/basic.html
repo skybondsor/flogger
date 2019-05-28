@@ -1,0 +1,54 @@
+<html>
+
+	<head>
+
+		<title>Flogger Basic Example</title>
+
+		<link rel="stylesheet" type="text/css" href="../flogger.css">
+
+		<style>
+
+			body { padding: 2em; font-family: sans-serif; line-height: 150%; }
+
+		</style>
+
+	</head>
+
+	<body>
+
+		<h1>UI for you to test</h1>
+
+		<p id="theParagraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		consequat. <a id="theLink" href="https://wikipedia.org" target="_blank">Duis aute irure dolor in reprehenderit in voluptate velit esse</a>
+		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+		<script type="text/javascript" src="../libs/mousetrap.js"></script>
+
+		<script type="text/javascript" src="../flogger.js"></script>
+
+		<script type="text/javascript" src="basic.js"></script>
+
+		<script>
+
+			document.getElementById('theParagraph').addEventListener('select',function(){
+				alert('Whoa why all the selecting?!');
+			});
+
+			// Designate a test by name via URL param				
+	    var flogParam = window.location.href.match(/(flog=)(\w*)/);
+
+	    // Maybe we've lost the URL param along the way; that's okay, we saved it in localStorage
+	    var flog = flogParam ? flogParam[2] : localStorage.getItem('flog');
+	    
+	    if ( flog ){
+	    	runFlog(flog,'load');
+	    }
+
+		</script>
+
+	</body>
+
+</html>
