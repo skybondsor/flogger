@@ -8,7 +8,7 @@ Automated testing and unit testing are obvs essential, but so is having an actua
 
 It's time consuming, it's labor intensive, and it often doesn't catch the things it should because it presents a very real conflict of interest for anyone whose job it is to make the product. Since every bug they find is just makng more work for themselves, they have an incentive to tread lightly on the UI and to minimize whatever bugs they do find.
 
-Of course, if your project has the resources to do so, you should hire a dedicated QA Engineer! Their job it is to find bugs, which should eliminate the pesky conflict of interest. But what do you do if you have a small team without the resources to hire someone to do QA? Well, you try to make manual testing as quick, painless, and documentable as possible.
+Of course, if your project has the resources to do so, you should hire a dedicated QA Engineer! Their job is to find bugs, which should eliminate the pesky conflict of interest. But what do you do if you have a small team without the resources to hire someone to do QA? Well, you try to make manual testing as quick, painless, and documentable as possible.
 
 I created Flogger for [TallyLab](https://tallylab.com) when our team was tiny (as of this writing, it still is!), in an attempt to hold my own feet to the fire.
 
